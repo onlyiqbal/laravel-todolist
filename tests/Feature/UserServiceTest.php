@@ -11,24 +11,32 @@ use function PHPUnit\Framework\assertTrue;
 
 class UserServiceTest extends TestCase
 {
-    private UserService $userSerive;
+    private UserService $userService;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->userSerive = $this->app->make(UserService::class);
+        $this->userService = $this->app->make(UserService::class);
     }
 
-    public function testLoginSuccess(){
-        self::assertTrue($this->userSerive->login('iqbal', 'qwerty'));
+    public function testSample()
+    {
+        $this->assertTrue(true);
     }
 
-    public function testLoginFaild(){
-        self::assertFalse($this->userSerive->login('budi', 'rahasia'));
+    public function testLoginSuccess()
+    {
+        self::assertTrue($this->userService->login('iqbal', 'qwerty'));
     }
 
-    public function testLoginWrongPassword(){
-        self::assertFalse($this->userSerive->login('iqbal', 'rahasia'));
+    public function testLoginFaild()
+    {
+        self::assertFalse($this->userService->login('budi', 'rahasia'));
+    }
+
+    public function testLoginWrongPassword()
+    {
+        self::assertFalse($this->userService->login('iqbal', 'rahasia'));
     }
 }

@@ -33,17 +33,7 @@ class UserControllerTest extends TestCase
         $this->post('/login', [
             'user' => 'salah',
             'password' => 'salah',
-        ])
-            ->assertSeeText('User atau password salah');
-    }
-
-    public function testLogout()
-    {
-        $this->withSession([
-            'user' => 'iqbal'
-        ])->post('/logout')
-            ->assertRedirect('/')
-            ->assertSessionMissing('user');
+        ])->assertSeeText('User atau password salah');
     }
 
     public function testLoginPageForMember()
@@ -62,5 +52,20 @@ class UserControllerTest extends TestCase
             'user' => 'iqbal',
             'password' => 'qwerty'
         ])->assertRedirect('/');
+    }
+
+    public function testLogout()
+    {
+        $this->withSession([
+            'user' => 'iqbal'
+        ])->post('/logout')
+            ->assertRedirect('/')
+            ->assertSessionMissing('user');
+    }
+
+    public function testLogoutGuest()
+    {
+        $this->post("/logout")
+            ->assertRedirect("/");
     }
 }
