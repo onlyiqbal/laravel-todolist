@@ -28,4 +28,6 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/logout', 'doLogout')->middleware([OnlyMemberMiddleware::class]);
 });
 
-Route::get("/todolist", [TodolistController::class, "todolist"]);
+Route::controller(TodolistController::class)->middleware(OnlyMemberMiddleware::class)->group(function () {
+    Route::get("/todolist", "todoList");
+});

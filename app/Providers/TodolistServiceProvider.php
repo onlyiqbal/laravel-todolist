@@ -10,14 +10,13 @@ use Illuminate\Support\ServiceProvider;
 class TodolistServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public array $singletons = [
-        TodolistService::class => TodolistServiceImpl::class,
+        TodolistService::class => TodolistServiceImpl::class
     ];
 
-    public function provides()
+    public function provides(): array
     {
         return [TodolistService::class];
     }
-
     /**
      * Register services.
      *
