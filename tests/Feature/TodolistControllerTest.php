@@ -29,4 +29,41 @@ class TodolistControllerTest extends TestCase
             ->assertSeeText("2")
             ->assertSeeText("belajar");
     }
+
+    public function testAddTodotFaild()
+    {
+        $this->withSession([
+            "user" => "iqbal"
+        ])->post("/todolist")
+            ->assertSeeText("Todo tidak boleh kosong");
+    }
+
+    public function testAddTodo()
+    {
+        $this->withSession([
+            "user" => "iqbal"
+        ])->post("/todolist", [
+            "todo" => "belajar"
+        ])->assertRedirect("/todolist");
+    }
+
+    public function testRemoveTodo()
+    {
+        $this->withSession(
+            [
+                "user" => "iqbal",
+                "todolist" => [
+                    [
+                        "id" => "1",
+                        "todo" => "ngopi"
+                    ],
+                    [
+                        "id" => "2",
+                        "todo" => "belajar"
+                    ]
+                ]
+            ]
+        )->post("/todolist/1/delete")
+            ->assertRedirect("/todolist");
+    }
 }
